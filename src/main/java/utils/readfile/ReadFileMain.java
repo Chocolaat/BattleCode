@@ -1,4 +1,4 @@
-package samples.employee;
+package utils.readfile;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
@@ -12,8 +12,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class EmployeeMain {
+public class ReadFileMain {
 
     public static String pathToFile;
 
@@ -26,21 +27,17 @@ public class EmployeeMain {
     }
 
 
-
-
-
     public static void main(String[] args) throws IOException, URISyntaxException {
-         getEmployeeListLineByLine().forEach(emp -> Logger.logInfo(emp.toString()));
+         getBeanLineByLine().forEach(emp -> Logger.logInfo(emp.toString()));
     }
 
 
-
-    public List<String[]> readAllLines() throws Exception {
+    public static List<String[]> readAllLines() throws Exception {
         CSVReader reader = new CSVReader(new FileReader(pathToFile), ',');
         return reader.readAll();
     }
 
-    public static List<Employee> getEmployeeListLineByLine() throws URISyntaxException, IOException {
+    public static List<Employee> getBeanLineByLine() throws URISyntaxException, IOException {
 
         CSVReader reader = new CSVReader(new FileReader(pathToFile), ',');
 
@@ -62,7 +59,7 @@ public class EmployeeMain {
         return emps;
     }
 
-    public static List<Employee> getEmployeeListBean() throws IOException, URISyntaxException {
+    public static List<Employee> getBeanFromFile() throws IOException, URISyntaxException {
 
         CSVReader reader = new CSVReader(new FileReader(pathToFile), ',');
 
@@ -77,7 +74,7 @@ public class EmployeeMain {
         return emps;
     }
 
-    public static List<Employee> getEmployeeListManual() throws IOException, URISyntaxException {
+    public static List<Employee> getBeanReadAll() throws IOException, URISyntaxException {
 
         CSVReader reader = new CSVReader(new FileReader(pathToFile), ',');
         List<Employee> emps = new ArrayList<>();
@@ -98,6 +95,14 @@ public class EmployeeMain {
         reader.close();
 
         return emps;
+    }
+
+    public static List<String> readAllLinesOneCol() throws Exception {
+        CSVReader reader = new CSVReader(new FileReader(pathToFile), ',');
+        List<String[]> records = reader.readAll();
+
+        return records.stream().map(elem -> elem[0]).collect(Collectors.toList());
+
     }
 
 }

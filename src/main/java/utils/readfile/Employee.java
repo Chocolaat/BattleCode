@@ -1,4 +1,4 @@
-package samples.employee;
+package utils.readfile;
 
 import lombok.Data;
 
