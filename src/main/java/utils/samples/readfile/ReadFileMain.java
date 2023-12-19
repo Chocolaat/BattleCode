@@ -1,4 +1,4 @@
-package utils.readfile;
+package utils.samples.readfile;
 
 import com.opencsv.CSVReader;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
